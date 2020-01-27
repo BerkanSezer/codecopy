@@ -11,6 +11,7 @@ const siteStyle = getSiteStyle();
 
 const snippets = document.querySelectorAll('pre');
 
+
 snippets.forEach((snippet) => {
   const parent = snippet.parentNode;
   const wrapper = document.createElement('div');
@@ -21,7 +22,11 @@ snippets.forEach((snippet) => {
   wrapper.classList.add('codecopy', `codecopy-${siteStyle}`);
   wrapper.firstChild.insertAdjacentHTML('beforebegin', htmlButton);
 });
+// Github source Codes copy
 
+if(window.location.origin.includes("github.com")){
+  loadGithubTables()
+}
 // Add copy to clipboard functionality and user feedback
 
 const clipboard = new ClipboardJS('.codecopy-btn', {
@@ -50,3 +55,17 @@ btns.forEach((btn) => {
     e.preventDefault()
   });
 });
+
+function loadGithubTables(){
+  let githubTableDatas = document.querySelectorAll("table.highlight");
+  githubTableDatas.forEach((snippet) => {
+    const parent = snippet.parentNode;
+    const wrapper = document.createElement('div');
+  
+    parent.replaceChild(wrapper, snippet);
+    wrapper.appendChild(snippet);
+  
+    wrapper.classList.add('codecopy', `codecopy-${siteStyle}`);
+    wrapper.firstChild.insertAdjacentHTML('beforebegin', htmlButton);
+  });
+}
